@@ -1,5 +1,5 @@
 const mixinDeep = require("mixin-deep");
-const pluginJest = require("eslint-plugin-jest");
+const vitestPlugin = require("@vitest/eslint-plugin");
 
 const {
   SETTING_NAME_PREFIX,
@@ -9,27 +9,27 @@ const {
 
 /**
  * @class
- * @name JestSetting
- * @classdesc Jest flat-config settings
+ * @name VitestSetting
+ * @classdesc Vitest flat-config settings
  */
-class JestSetting {
+class VitestSetting {
   #settingOption;
 
-  #name = `${SETTING_NAME_PREFIX}/${SETTING_TYPES.JEST}`;
+  #name = `${SETTING_NAME_PREFIX}/${SETTING_TYPES.VITEST}`;
   #files = [...ALL_TEST_FILES];
   #ignores = [];
   #languageOptions = {
-    globals: pluginJest.environments.globals.globals,
+    globals: vitestPlugin.environments.env.globals,
   };
   #plugins = {
-    jest: pluginJest,
+    vitest: vitestPlugin,
   };
   #rules = {
-    ...pluginJest.configs["flat/recommended"].rules,
-    "jest/consistent-test-it": ["error", { fn: "test" }],
-    "jest/valid-title": "error",
-    "jest/no-done-callback": "error",
-    "jest/expect-expect": "off",
+    ...vitestPlugin.configs.recommended.rules,
+    "vitest/consistent-test-it": ["error", { fn: "test" }],
+    "vitest/valid-title": "error",
+    "vitest/no-done-callback": "error",
+    "vitest/expect-expect": "off",
   };
 
   /**
@@ -82,4 +82,4 @@ class JestSetting {
     return setting;
   }
 }
-module.exports = JestSetting;
+module.exports = VitestSetting;

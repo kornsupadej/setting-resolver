@@ -6,6 +6,8 @@ const ts = require("typescript-eslint");
 const {
   ALL_JS_FILES,
   ALL_TS_FILES,
+  ALL_IGNORE_FILES,
+  SETTING_NAME_PREFIX,
   SETTING_TYPES,
 } = require("../constants.cjs");
 
@@ -18,9 +20,9 @@ class NodeJSSetting {
   #settingSpec;
   #settingOption;
 
-  #name = SETTING_TYPES;
+  #name = `${SETTING_NAME_PREFIX}/${SETTING_TYPES.NODEJS}`;
   #files = [...ALL_JS_FILES];
-  #ignores = [];
+  #ignores = [...ALL_IGNORE_FILES];
   #languageOptions = {
     ...importPlugin.flatConfigs.recommended.languageOptions,
   };
@@ -77,16 +79,18 @@ class NodeJSSetting {
   }
 
   get files() {
-    const setting = [...this.#files];
+    const setting = this.#files;
     if (this.#settingSpec.typescript) {
       setting.push(...ALL_TS_FILES);
     }
     setting.push(...this.#settingOption.files);
-    return setting;
+    return [...new Set(setting).values()];
   }
 
   get ignores() {
-    return [...this.#ignores, ...this.#settingOption.ignores];
+    return [
+      ...new Set([...this.#ignores, ...this.#settingOption.ignores]).values(),
+    ];
   }
 
   get languageOptions() {

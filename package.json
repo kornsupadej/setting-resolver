@@ -5,20 +5,40 @@
   "author": "Kornsupadej Suvarnakasa",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"hello world!\" && exit 1",
+    "lint": "eslint \"{src,specs}/**/*.{js,cjs}\" --fix"
   },
-  "keywords": [],
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "eslint": "^9.21.0",
-    "globals": "^16.0.0",
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@vitest/eslint-plugin": "1.1.31",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-mocha": "^10.5.0",
     "eslint-plugin-n": "^17.15.1",
+    "globals": "^16.0.0",
     "mixin-deep": "^2.0.1",
     "typescript-eslint": "^8.24.1"
-  }
+  },
+  "peerDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "ast",
+    "lint",
+    "javascript",
+    "ecmascript",
+    "espree"
+  ]
 }

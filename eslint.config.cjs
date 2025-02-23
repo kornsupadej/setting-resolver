@@ -12,6 +12,7 @@ module.exports = [
     },
   },
   {
+    name: "eslint/eslint-recommended",
     rules: {
       ...js.configs.recommended.rules,
     },

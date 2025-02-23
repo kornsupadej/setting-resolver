@@ -1,11 +1,21 @@
 const mixinDeep = require("mixin-deep");
 const pluginNode = require("eslint-plugin-n");
 
-const { ESM_FILES } = require("../constants.cjs");
+const {
+  ESM_FILES,
+  SETTING_NAME_PREFIX,
+  SETTING_TYPES,
+} = require("../constants.cjs");
 
+/**
+ * @class
+ * @name ESMSetting
+ * @classdesc ESModule flat-config settings
+ */
 class ESMSetting {
   #settingOption;
 
+  #name = `${SETTING_NAME_PREFIX}/${SETTING_TYPES.ESM}`;
   #files = [...ESM_FILES];
   #ignores = [];
   #languageOptions = {};
@@ -21,7 +31,7 @@ class ESMSetting {
 
   /**
    * @constructor
-   * @param {import('../types').SettingSpec} settingSpec
+   * @param {import('../types').SettingSpec} _
    * @param {import('../types').ESLint.FlatConfig} settingOption
    */
   constructor(_, settingOption) {
@@ -29,12 +39,20 @@ class ESMSetting {
   }
 
   /** getters */
+  get name() {
+    return this.#name;
+  }
+
   get files() {
-    return [...this.#files, ...this.#settingOption.files];
+    return [
+      ...new Set([...this.#files, ...this.#settingOption.files]).values(),
+    ];
   }
 
   get ignores() {
-    return [...this.#ignores, ...this.#settingOption.ignores];
+    return [
+      ...new Set([...this.#ignores, ...this.#settingOption.ignores]).values(),
+    ];
   }
 
   get languageOptions() {

@@ -1,11 +1,21 @@
 const mixinDeep = require("mixin-deep");
 const pluginNode = require("eslint-plugin-n");
 
-const { CJS_FILES } = require("../constants.cjs");
+const {
+  CJS_FILES,
+  SETTING_NAME_PREFIX,
+  SETTING_TYPES,
+} = require("../constants.cjs");
 
+/**
+ * @class
+ * @name CJSSetting
+ * @classdesc CommonJS flat-config settings
+ */
 class CJSSetting {
   #settingOption;
 
+  #name = `$${SETTING_NAME_PREFIX}/${SETTING_TYPES.CJS}`;
   #files = [...CJS_FILES];
   #ignores = [];
   #languageOptions = {};
@@ -24,7 +34,7 @@ class CJSSetting {
 
   /**
    * @constructor
-   * @param {import('../types').SettingSpec} settingSpec
+   * @param {import('../types').SettingSpec} _
    * @param {import('../types').ESLint.FlatConfig} settingOption
    */
   constructor(_, settingOption) {
@@ -32,12 +42,20 @@ class CJSSetting {
   }
 
   /** getters */
+  get name() {
+    return this.#name;
+  }
+
   get files() {
-    return [...this.#files, ...this.#settingOption.files];
+    return [
+      ...new Set([...this.#files, ...this.#settingOption.files]).values(),
+    ];
   }
 
   get ignores() {
-    return [...this.#ignores, ...this.#settingOption.ignores];
+    return [
+      ...new Set([...this.#ignores, ...this.#settingOption.ignores]).values(),
+    ];
   }
 
   get languageOptions() {

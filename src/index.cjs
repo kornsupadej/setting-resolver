@@ -22,10 +22,10 @@ function resolveSetting(settingSpec, ...settingOptions) {
       plugins: setting.plugins,
     });
     finalSetting.push({
-      name: `${SETTING_NAME_PREFIX}/${setting.name}`,
-      files: setting.files,
+      name: setting.name,
+      ...(setting.files.length && { files: setting.files }),
       ...(setting.ignores.length && { ignore: setting.ignores }),
-      rules: setting.rules,
+      ...(Object.keys(setting.rules).length && { rules: setting.rules }),
     });
   }
   if (settingSpec.prettier) {

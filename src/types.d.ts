@@ -33,7 +33,13 @@ export type SettingSpec = {
    */
   prettier?: boolean;
 };
-export type SettingTypes = "nodejs" | "prettier" | "jest" | "vitest";
+export type SettingTypes =
+  | "cjs"
+  | "esm"
+  | "nodejs"
+  | "jest"
+  | "vitest"
+  | "mocha";
 export type SettingOption = {
   type: SettingTypes;
   options?: ESLint.LegacyConfig | ESLint.FlatConfig;

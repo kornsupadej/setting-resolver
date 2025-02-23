@@ -1,7 +1,10 @@
 const CJSSetting = require("./cjs.cjs");
 const DefaultSetting = require("./default.cjs");
 const ESMSetting = require("./esm.cjs");
+const JestSetting = require("./jest.cjs");
+const MochaSetting = require("./mocha.cjs");
 const NodeJSSetting = require("./nodejs.cjs");
+const VitestSetting = require("./vitest.cjs");
 
 const { SETTING_TYPES } = require("../constants.cjs");
 
@@ -10,6 +13,9 @@ const settingClasses = Object.freeze({
     [SETTING_TYPES.CJS]: CJSSetting,
     [SETTING_TYPES.ESM]: ESMSetting,
     [SETTING_TYPES.NODEJS]: NodeJSSetting,
+    [SETTING_TYPES.JEST]: JestSetting,
+    [SETTING_TYPES.VITEST]: VitestSetting,
+    [SETTING_TYPES.MOCHA]: MochaSetting,
   },
 });
 /**

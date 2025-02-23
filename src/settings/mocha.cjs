@@ -1,5 +1,5 @@
 const mixinDeep = require("mixin-deep");
-const pluginJest = require("eslint-plugin-jest");
+const pluginMocha = require("eslint-plugin-mocha");
 
 const {
   SETTING_NAME_PREFIX,
@@ -9,27 +9,23 @@ const {
 
 /**
  * @class
- * @name JestSetting
- * @classdesc Jest flat-config settings
+ * @name MochaSetting
+ * @classdesc Mocha flat-config settings
  */
-class JestSetting {
+class MochaSetting {
   #settingOption;
 
-  #name = `${SETTING_NAME_PREFIX}/${SETTING_TYPES.JEST}`;
+  #name = `${SETTING_NAME_PREFIX}/${SETTING_TYPES.MOCHA}`;
   #files = [...ALL_TEST_FILES];
   #ignores = [];
   #languageOptions = {
-    globals: pluginJest.environments.globals.globals,
+    globals: pluginMocha.configs.flat.recommended.languageOptions.globals,
   };
   #plugins = {
-    jest: pluginJest,
+    mocha: pluginMocha,
   };
   #rules = {
-    ...pluginJest.configs["flat/recommended"].rules,
-    "jest/consistent-test-it": ["error", { fn: "test" }],
-    "jest/valid-title": "error",
-    "jest/no-done-callback": "error",
-    "jest/expect-expect": "off",
+    ...pluginMocha.configs.flat.recommended.rules,
   };
 
   /**
@@ -82,4 +78,4 @@ class JestSetting {
     return setting;
   }
 }
-module.exports = JestSetting;
+module.exports = MochaSetting;
