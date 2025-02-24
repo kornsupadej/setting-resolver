@@ -1,4 +1,4 @@
-const vitestPlugin = require('@vitest/eslint-plugin')
+const pluginVitest = require('@vitest/eslint-plugin')
 
 const DefaultSetting = require('./default.cjs')
 const {
@@ -19,13 +19,13 @@ class VitestSetting extends DefaultSetting {
   #files = [...ALL_TEST_FILES]
   #ignores = [...ALL_IGNORE_FILES]
   #languageOptions = {
-    globals: vitestPlugin.environments.env.globals,
+    globals: pluginVitest.environments.env.globals,
   }
   #plugins = {
-    vitest: vitestPlugin,
+    vitest: pluginVitest,
   }
   #rules = {
-    ...vitestPlugin.configs.recommended.rules,
+    ...pluginVitest.configs.recommended.rules,
     'vitest/consistent-test-it': ['error', { fn: 'test' }],
     'vitest/valid-title': 'error',
     'vitest/no-done-callback': 'error',

@@ -55,11 +55,11 @@ class SettingProxy {
   }
 
   /**
-   * @public
-   * @method retrieveSetting
+   * @private
+   * @method #retrieveSetting
    * @description dynamically retrieve setting file
    */
-  retrieveSetting() {
+  #retrieveSetting() {
     try {
       const settingInstance = new settingClasses[this.#settingSpec.format][
         this.#settingOption.type
@@ -67,6 +67,35 @@ class SettingProxy {
       return settingInstance
     } catch {
       return new DefaultSetting(this.#settingSpec, this.#settingOption.options)
+    }
+  }
+
+  /**
+   * @public
+   * @method parseSetting
+   * @description parse setting file
+   */
+  parseSetting() {
+    const settingInstance = this.#retrieveSetting()
+    const {
+      getName: name,
+      getFiles: files,
+      getIgnores: ignores,
+      getLanguageOptions: languageOptions,
+      getPlugins: plugins,
+      getRules: rules,
+    } = settingInstance
+    return {
+      globalSetting: {
+        ...(Object.keys(plugins).length && { plugins }),
+      },
+      localSetting: {
+        name,
+        ...(files.length && { files }),
+        ...(ignores.length && { ignores }),
+        ...(Object.keys(languageOptions).length && { languageOptions }),
+        ...(Object.keys(rules).length && { rules }),
+      },
     }
   }
 }

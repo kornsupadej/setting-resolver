@@ -1,4 +1,5 @@
-const mergeDeep = require('merge-deep')
+const cloneDeep = require('lodash/cloneDeep')
+const merge = require('lodash/merge')
 
 const { SETTING_NAME_PREFIX } = require('../constants.cjs')
 
@@ -8,6 +9,9 @@ const { SETTING_NAME_PREFIX } = require('../constants.cjs')
  * @classdesc Default flat-config settings
  */
 class DefaultSetting {
+  settingSpec
+  settingOption
+
   name = `${SETTING_NAME_PREFIX}/default`
   files = []
   ignores = []
@@ -26,38 +30,39 @@ class DefaultSetting {
   }
 
   /** getters */
-  get name() {
+  get getName() {
     return this.name
   }
 
-  get files() {
-    return [...new Set([...this.files, ...this.settingOption.files]).values()]
+  get getFiles() {
+    const setting = cloneDeep(this.files)
+    setting.push(...this.settingOption.files)
+    this.files = [...new Set(setting).values()]
+    return this.files
   }
 
-  get ignores() {
-    return [
-      ...new Set([...this.ignores, ...this.settingOption.ignores]).values(),
-    ]
+  get getIgnores() {
+    const setting = cloneDeep(this.ignores)
+    setting.push(...this.settingOption.ignores)
+    this.ignores = [...new Set(setting).values()]
+    return this.ignores
   }
 
-  get languageOptions() {
-    const setting = mergeDeep(
-      this.languageOptions,
-      this.settingOption.languageOptions
-    )
-    this.languageOptions = setting
+  get getLanguageOptions() {
+    const setting = cloneDeep(this.languageOptions)
+    this.languageOptions = merge(setting, this.settingOption.languageOptions)
     return this.languageOptions
   }
 
-  get plugins() {
-    const setting = mergeDeep(this.plugins, this.settingOption.plugins)
-    this.plugins = setting
+  get getPlugins() {
+    const setting = cloneDeep(this.plugins)
+    this.plugins = merge(setting, this.settingOption.plugins)
     return this.plugins
   }
 
-  get rules() {
-    const setting = mergeDeep(this.rules, this.settingOption.rules)
-    this.rules = setting
+  get getRules() {
+    const setting = cloneDeep(this.rules)
+    this.rules = merge(setting, this.settingOption.rules)
     return this.rules
   }
 }

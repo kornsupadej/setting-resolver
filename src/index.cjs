@@ -1,29 +1,24 @@
-const SettingProxy = require('./settings/proxy.cjs')
+const merge = require('lodash/merge')
 
+const SettingProxy = require('./settings/proxy.cjs')
+const { SETTING_NAME_PREFIX } = require('./constants.cjs')
+
+const baseSetting = {
+  name: `${SETTING_NAME_PREFIX}/base`,
+}
 /** @type {import('./types').resolveSetting} */
 function resolveSetting(settingSpec, ...settingOptions) {
-  const globalPlugins = {}
-  const finalSetting = []
+  const finalSetting = [baseSetting]
   for (const settingOption of settingOptions) {
-    const setting = new SettingProxy(
+    const { globalSetting, localSetting } = new SettingProxy(
       settingSpec,
       settingOption
-    ).retrieveSetting()
-    Object.assign(globalPlugins, setting.plugins)
+    ).parseSetting()
+    merge(baseSetting, globalSetting)
     finalSetting.push({
-      name: setting.name,
-      ...(setting.files.length && { files: setting.files }),
-      ...(setting.ignores.length && { ignores: setting.ignores }),
-      ...(Object.keys(setting.languageOptions).length && {
-        languageOptions: setting.languageOptions,
-      }),
-      ...(Object.keys(setting.rules).length && { rules: setting.rules }),
+      ...localSetting,
     })
   }
-  Object.keys(globalPlugins).length &&
-    finalSetting.unshift({
-      plugins: globalPlugins,
-    })
   if (settingSpec?.prettier) {
     const prettierConfig = require('eslint-config-prettier')
     finalSetting.push(prettierConfig)

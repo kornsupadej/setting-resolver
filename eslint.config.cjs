@@ -1,11 +1,15 @@
+const configPrerttier = require('eslint-config-prettier')
+const pluginComments = require('eslint-plugin-eslint-comments')
 const globals = require('globals')
 const js = require('@eslint/js')
 const pluginMocha = require('eslint-plugin-mocha')
-const configPrerttier = require('eslint-config-prettier')
 
 /** @type {import('eslint').Linter.Config[]} */
 module.exports = [
   { files: ['**/*.cjs'] },
+  {
+    ignores: ['.coverage', '.nyc_output'],
+  },
   {
     languageOptions: {
       ecmaVersion: 'latest',
@@ -24,14 +28,24 @@ module.exports = [
     },
   },
   {
+    name: 'eslint/eslint-comments',
+    plugins: {
+      'eslint-comments': pluginComments,
+    },
+    rules: {
+      ...pluginComments.configs.recommended.rules,
+    },
+  },
+  {
     name: 'eslint/mocha',
-    files: ['specs/**/*.spec.{js,cjs}'],
     ...pluginMocha.configs.flat.recommended,
+    files: ['specs/**/*.spec.cjs'],
     /** override rules */
     rules: {
       ...pluginMocha.configs.flat.recommended.rules,
       'mocha/no-mocha-arrows': 'off',
     },
   },
+
   configPrerttier,
 ]

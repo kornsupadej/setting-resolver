@@ -1,9 +1,11 @@
+const assign = require('lodash/assign')
+const cloneDeep = require('lodash/cloneDeep')
+const globals = require('globals')
+const merge = require('lodash/merge')
 const pluginImport = require('eslint-plugin-import')
 const js = require('@eslint/js')
-const mixinDeep = require('mixin-deep')
 const ts = require('typescript-eslint')
 
-const DefaultSetting = require('./default.cjs')
 const {
   ALL_JS_FILES,
   ALL_TS_FILES,
@@ -15,15 +17,18 @@ const {
 /**
  * @class
  * @name NodeJSSetting
- * @extends DefaultSetting
  * @classdesc Nodejs flat-config settings
  */
-class NodeJSSetting extends DefaultSetting {
+class NodeJSSetting {
+  #settingSpec
+  #settingOption
+
   #name = `${SETTING_NAME_PREFIX}/${SETTING_TYPES.NODEJS}`
   #files = [...ALL_JS_FILES]
   #ignores = [...ALL_IGNORE_FILES]
   #languageOptions = {
     ...pluginImport.flatConfigs.recommended.languageOptions,
+    globals: globals.node,
   }
   #plugins = {
     import: pluginImport.flatConfigs.recommended.plugins.import,
@@ -68,60 +73,74 @@ class NodeJSSetting extends DefaultSetting {
    * @param {import('../types').ESLint.FlatConfig} settingOption
    */
   constructor(settingSpec, settingOption) {
-    super(settingSpec, settingOption)
-    this.name = this.#name
-    this.ignores = this.#ignores
+    this.#settingSpec = settingSpec
+    this.#settingOption = settingOption
   }
 
-  /** override getters */
-  get files() {
-    const setting = this.#files
-    if (this.settingSpec.typescript) {
+  /** getters */
+  get getName() {
+    return this.#name
+  }
+
+  get getFiles() {
+    const setting = cloneDeep(this.#files)
+    if (this.#settingSpec.typescript) {
       setting.push(...ALL_TS_FILES)
     }
-    setting.push(...this.settingOption.files)
-    return [...new Set(setting).values()]
+    setting.push(...this.#settingOption.files)
+    this.#files = [...new Set(setting).values()]
+    return this.#files
   }
 
-  get languageOptions() {
-    const setting = this.#languageOptions
-    if (this.settingSpec.typescript) {
-      mixinDeep(setting, {
+  get getIgnores() {
+    const setting = cloneDeep(this.#ignores)
+    setting.push(...this.#settingOption.ignores)
+    this.#ignores = [...new Set(setting).values()]
+    return this.#ignores
+  }
+
+  get getLanguageOptions() {
+    const setting = cloneDeep(this.#languageOptions)
+    if (this.#settingSpec.typescript) {
+      assign(setting, {
         parser: ts.parser,
         parserOptions: {
           project: ['tsconfig?(.*).json'],
           projectService: true,
-          tsconfigRootDir: this.settingSpec.rootDir,
+          tsconfigRootDir: this.#settingSpec.rootDir,
         },
       })
     }
-    mixinDeep(setting, this.settingOption.languageOptions)
-    return setting
+    merge(setting, this.#settingOption.languageOptions)
+    this.#languageOptions = setting
+    return this.#languageOptions
   }
 
-  get plugins() {
-    const setting = this.#plugins
-    if (this.settingSpec.typescript) {
-      mixinDeep(setting, {
+  get getPlugins() {
+    const setting = cloneDeep(this.#plugins)
+    if (this.#settingSpec.typescript) {
+      assign(setting, {
         '@typescript-eslint': ts.plugin,
       })
     }
-    mixinDeep(setting, this.settingOption.plugins)
-    return setting
+    merge(setting, this.#settingOption.plugins)
+    this.#plugins = setting
+    return this.#plugins
   }
 
-  get rules() {
-    const setting = this.#rules
-    if (this.settingSpec.typescript) {
-      mixinDeep(setting, {
+  get getRules() {
+    const setting = cloneDeep(this.#rules)
+    if (this.#settingSpec.typescript) {
+      assign(setting, {
         /** eslint-recommended */
         ...ts.configs.recommendedTypeChecked[1].rules,
         /** tseslint-recommended-type-checked */
         ...ts.configs.recommendedTypeChecked[2].rules,
       })
     }
-    mixinDeep(setting, this.settingOption.rules)
-    return setting
+    merge(setting, this.#settingOption.rules)
+    this.#rules = setting
+    return this.#rules
   }
 }
 module.exports = NodeJSSetting
