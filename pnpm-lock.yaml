@@ -48,11 +48,14 @@ importers:
         specifier: ^9.21.0
         version: 9.21.0
       chai:
-        specifier: ^5.2.0
-        version: 5.2.0
+        specifier: ^4.3.10
+        version: 4.3.10
       eslint:
         specifier: ^9.21.0
         version: 9.21.0
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       lint-staged:
         specifier: ^15.4.3
         version: 15.4.3
@@ -1152,12 +1155,11 @@ packages:
       }
     engines: { node: '>= 0.4' }
 
-  assertion-error@2.0.1:
+  assertion-error@1.1.0:
     resolution:
       {
-        integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==,
+        integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==,
       }
-    engines: { node: '>=12' }
 
   async-function@1.0.0:
     resolution:
@@ -1333,12 +1335,12 @@ packages:
         integrity: sha512-2S6XIXwaE7K7erT8dY+kLQcpa5ms63XlRkMkReXjle+kf6c5g38vyMl+Z5y8dSxOFDhcFe+nxnn261PLxBSQsQ==,
       }
 
-  chai@5.2.0:
+  chai@4.3.10:
     resolution:
       {
-        integrity: sha512-mCuXncKXk5iCLhfhwTc0izo0gtEmpz5CtG2y8GiOINBlMVS6v8TMRc5TaLWKS6692m9+dVVfzgeVxR5UxWHTYw==,
+        integrity: sha512-0UXG04VuVbruMUYbJ6JctvH0YnC/4q3/AkT18q4NaITo91CUm0liMS9VqzT9vZhVQ/1eqPanMWjBM+Juhfb/9g==,
       }
-    engines: { node: '>=12' }
+    engines: { node: '>=4' }
 
   chalk@4.1.2:
     resolution:
@@ -1367,12 +1369,11 @@ packages:
         integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==,
       }
 
-  check-error@2.1.1:
+  check-error@1.0.3:
     resolution:
       {
-        integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==,
+        integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==,
       }
-    engines: { node: '>= 16' }
 
   chokidar@3.6.0:
     resolution:
@@ -1575,10 +1576,10 @@ packages:
       babel-plugin-macros:
         optional: true
 
-  deep-eql@5.0.2:
+  deep-eql@4.1.4:
     resolution:
       {
-        integrity: sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q==,
+        integrity: sha512-SUwdGfqdKOwxCPeVYjwSyRpJ7Z+fhpwIAtmCUdZIWZ/YP5R9WAsyuSgpLVDi9bjWoN2LXHNss/dk3urXtdQxGg==,
       }
     engines: { node: '>=6' }
 
@@ -2286,6 +2287,12 @@ packages:
       }
     engines: { node: '>=18' }
 
+  get-func-name@2.0.2:
+    resolution:
+      {
+        integrity: sha512-8vXOvuE167CtIc3OyItco7N/dpRtBbYOsPsXCz7X/PMnlGjYjSGuZJgM1Y7mmew7BKf9BqvLX2tnOVy1BBUsxQ==,
+      }
+
   get-intrinsic@1.3.0:
     resolution:
       {
@@ -2518,6 +2525,14 @@ packages:
         integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==,
       }
     engines: { node: '>=16.17.0' }
+
+  husky@9.1.7:
+    resolution:
+      {
+        integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==,
+      }
+    engines: { node: '>=18' }
+    hasBin: true
 
   iconv-lite@0.4.24:
     resolution:
@@ -3319,10 +3334,10 @@ packages:
       }
     engines: { node: '>=18' }
 
-  loupe@3.1.3:
+  loupe@2.3.7:
     resolution:
       {
-        integrity: sha512-kkIp7XSkP78ZxJEsSxW3712C6teJVoeHHwgo9zJ380de7IYyJ2ISlxojcH2pC5OFLewESmnRi/+XCDIEEVyoug==,
+        integrity: sha512-zSMINGVYkdpYSOBmLi0D1Uo7JU9nVdQKrHxC8eYlV+9YKK9WePqAlL7lSlorG/U2Fw1w0hTBmaa/jrQ3UbPHtA==,
       }
 
   lru-cache@10.4.3:
@@ -3759,12 +3774,11 @@ packages:
       }
     engines: { node: '>=8' }
 
-  pathval@2.0.0:
+  pathval@1.1.1:
     resolution:
       {
-        integrity: sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==,
+        integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==,
       }
-    engines: { node: '>= 14.16' }
 
   picocolors@1.1.1:
     resolution:
@@ -5699,7 +5713,7 @@ snapshots:
       get-intrinsic: 1.3.0
       is-array-buffer: 3.0.5
 
-  assertion-error@2.0.1: {}
+  assertion-error@1.1.0: {}
 
   async-function@1.0.0: {}
 
@@ -5837,13 +5851,15 @@ snapshots:
 
   caniuse-lite@1.0.30001700: {}
 
-  chai@5.2.0:
+  chai@4.3.10:
     dependencies:
-      assertion-error: 2.0.1
-      check-error: 2.1.1
-      deep-eql: 5.0.2
-      loupe: 3.1.3
-      pathval: 2.0.0
+      assertion-error: 1.1.0
+      check-error: 1.0.3
+      deep-eql: 4.1.4
+      get-func-name: 2.0.2
+      loupe: 2.3.7
+      pathval: 1.1.1
+      type-detect: 4.1.0
 
   chalk@4.1.2:
     dependencies:
@@ -5857,7 +5873,9 @@ snapshots:
 
   chardet@0.7.0: {}
 
-  check-error@2.1.1: {}
+  check-error@1.0.3:
+    dependencies:
+      get-func-name: 2.0.2
 
   chokidar@3.6.0:
     dependencies:
@@ -5980,7 +5998,9 @@ snapshots:
   dedent@1.5.3:
     optional: true
 
-  deep-eql@5.0.2: {}
+  deep-eql@4.1.4:
+    dependencies:
+      type-detect: 4.1.0
 
   deep-is@0.1.4: {}
 
@@ -6498,6 +6518,8 @@ snapshots:
 
   get-east-asian-width@1.3.0: {}
 
+  get-func-name@2.0.2: {}
+
   get-intrinsic@1.3.0:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -6628,6 +6650,8 @@ snapshots:
     optional: true
 
   human-signals@5.0.0: {}
+
+  husky@9.1.7: {}
 
   iconv-lite@0.4.24:
     dependencies:
@@ -7314,7 +7338,9 @@ snapshots:
       strip-ansi: 7.1.0
       wrap-ansi: 9.0.0
 
-  loupe@3.1.3: {}
+  loupe@2.3.7:
+    dependencies:
+      get-func-name: 2.0.2
 
   lru-cache@10.4.3: {}
 
@@ -7597,7 +7623,7 @@ snapshots:
 
   path-type@4.0.0: {}
 
-  pathval@2.0.0: {}
+  pathval@1.1.1: {}
 
   picocolors@1.1.1: {}
 

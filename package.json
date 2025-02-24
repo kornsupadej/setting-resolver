@@ -11,7 +11,8 @@
     "lint": "eslint \"**/*.{js,cjs}\" --fix",
     "lint:check": "eslint \"**/*.{js,cjs}\"",
     "format": "prettier \"**/*.{js,cjs,json,yml,yaml}\" --write",
-    "format:check": "prettier \"**/*.{js,cjs,json,yml,yaml}\""
+    "format:check": "prettier \"**/*.{js,cjs,json,yml,yaml}\"",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,cjs}": [
@@ -25,8 +26,9 @@
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
     "@eslint/js": "^9.21.0",
-    "chai": "^5.2.0",
+    "chai": "4.3.10",
     "eslint": "^9.21.0",
+    "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "mocha": "^11.1.0",
     "nyc": "^17.1.0",
