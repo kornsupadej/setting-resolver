@@ -1,12 +1,12 @@
-const CJSSetting = require("./cjs.cjs");
-const DefaultSetting = require("./default.cjs");
-const ESMSetting = require("./esm.cjs");
-const JestSetting = require("./jest.cjs");
-const MochaSetting = require("./mocha.cjs");
-const NodeJSSetting = require("./nodejs.cjs");
-const VitestSetting = require("./vitest.cjs");
+const CJSSetting = require('./cjs.cjs')
+const DefaultSetting = require('./default.cjs')
+const ESMSetting = require('./esm.cjs')
+const JestSetting = require('./jest.cjs')
+const MochaSetting = require('./mocha.cjs')
+const NodeJSSetting = require('./nodejs.cjs')
+const VitestSetting = require('./vitest.cjs')
 
-const { SETTING_TYPES } = require("../constants.cjs");
+const { SETTING_TYPES } = require('../constants.cjs')
 
 const settingClasses = Object.freeze({
   flat: {
@@ -17,15 +17,15 @@ const settingClasses = Object.freeze({
     [SETTING_TYPES.VITEST]: VitestSetting,
     [SETTING_TYPES.MOCHA]: MochaSetting,
   },
-});
+})
 /**
  * @class
  * @name SettingProxy
  * @classdesc dynamically retrieve setting files
  */
 class SettingProxy {
-  #settingSpec;
-  #settingOption;
+  #settingSpec
+  #settingOption
   /**
    * @constructor
    * @param {import('../types').SettingSpec} settingSpec
@@ -33,16 +33,17 @@ class SettingProxy {
    */
   constructor(settingSpec, settingOption) {
     this.#settingSpec = {
-      format: "flat",
+      format: 'flat',
       // format: settingSpec?.format || "flat",
       rootDir: settingSpec?.rootDir || process.cwd(),
       typescript: settingSpec?.typescript || false,
-    };
+      prettier: settingSpec?.prettier || false,
+    }
     this.#settingOption = {
       type:
-        typeof settingOption === "string"
+        typeof settingOption === 'string'
           ? settingOption
-          : settingOption?.type || "default",
+          : settingOption?.type || 'default',
       options: {
         files: settingOption?.options?.files || [],
         ignores: settingOption.options?.ignores || [],
@@ -50,7 +51,7 @@ class SettingProxy {
         plugins: settingOption.options?.plugins,
         rules: settingOption.options?.rules || {},
       },
-    };
+    }
   }
 
   /**
@@ -62,11 +63,11 @@ class SettingProxy {
     try {
       const settingInstance = new settingClasses[this.#settingSpec.format][
         this.#settingOption.type
-      ](this.#settingSpec, this.#settingOption.options);
-      return settingInstance;
+      ](this.#settingSpec, this.#settingOption.options)
+      return settingInstance
     } catch {
-      return new DefaultSetting();
+      return new DefaultSetting(this.#settingSpec, this.#settingOption.options)
     }
   }
 }
-module.exports = SettingProxy;
+module.exports = SettingProxy

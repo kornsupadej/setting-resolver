@@ -4,6 +4,10 @@ export namespace ESLint {
   export type LegacyConfigArray = import("eslint").Linter.BaseConfig[];
   export type FlatConfigArray = import("eslint").Linter.Config[];
 }
+export namespace Prettier {
+  export type Options = import("prettier").Options;
+  export type Config = import("prettier").Config;
+}
 export type SettingSpec = {
   /**
    * Retrieve eslint config format
@@ -48,3 +52,6 @@ export declare function resolveSetting(
   settingSpec: SettingSpec,
   ...settingOptions: SettingOption[] | SettingTypes[]
 ): ESLint.FlatConfigArray | ESLint.LegacyConfigArray;
+export declare function resolvePrettierSetting(
+  prettierOptions: Prettier.Options
+): Prettier.Config;

@@ -5,12 +5,20 @@
   "author": "Kornsupadej Suvarnakasa",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"hello world!\" && exit 1",
-    "lint": "eslint \"{src,specs}/**/*.{js,cjs}\" --fix"
+    "test": "mocha --no-package --config=./mocha.config.cjs",
+    "test:watch": "mocha --no-package --config=./mocha.config.cjs --watch",
+    "lint": "eslint \"**/*.{js,cjs}\" --fix",
+    "lint:check": "eslint \"**/*.{js,cjs}\"",
+    "format": "prettier \"**/*.{js,cjs,json,yml,yaml}\" --write",
+    "format:check": "prettier \"**/*.{js,cjs,json,yml,yaml}\""
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "chai": "^5.2.0",
     "eslint": "^9.21.0",
+    "mocha": "^11.1.0",
+    "prettier": "^3.5.2",
+    "sinon": "^19.0.2",
     "typescript": "^5.7.3"
   },
   "dependencies": {
@@ -21,6 +29,7 @@
     "eslint-plugin-mocha": "^10.5.0",
     "eslint-plugin-n": "^17.15.1",
     "globals": "^16.0.0",
+    "merge-deep": "^3.0.3",
     "mixin-deep": "^2.0.1",
     "typescript-eslint": "^8.24.1"
   },
@@ -31,6 +40,9 @@
   },
   "peerDependenciesMeta": {
     "typescript": {
+      "optional": true
+    },
+    "prettier": {
       "optional": true
     }
   },

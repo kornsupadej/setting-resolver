@@ -1,4 +1,6 @@
-const { SETTING_NAME_PREFIX } = require("../constants.cjs");
+const mergeDeep = require('merge-deep')
+
+const { SETTING_NAME_PREFIX } = require('../constants.cjs')
 
 /**
  * @class
@@ -6,38 +8,57 @@ const { SETTING_NAME_PREFIX } = require("../constants.cjs");
  * @classdesc Default flat-config settings
  */
 class DefaultSetting {
-  #name = `${SETTING_NAME_PREFIX}/default`;
-  #files = [];
-  #ignores = [];
-  #languageOptions = {};
-  #plugins = {};
-  #rules = {};
+  name = `${SETTING_NAME_PREFIX}/default`
+  files = []
+  ignores = []
+  languageOptions = {}
+  plugins = {}
+  rules = {}
 
-  constructor() {}
+  /**
+   * @constructor
+   * @param {import('../types').SettingSpec} settingSpec
+   * @param {import('../types').ESLint.FlatConfig} settingOption
+   */
+  constructor(settingSpec, settingOption) {
+    this.settingSpec = settingSpec
+    this.settingOption = settingOption
+  }
 
   /** getters */
   get name() {
-    return this.#name;
+    return this.name
   }
 
   get files() {
-    return this.#files;
+    return [...new Set([...this.files, ...this.settingOption.files]).values()]
   }
 
   get ignores() {
-    return this.#ignores;
+    return [
+      ...new Set([...this.ignores, ...this.settingOption.ignores]).values(),
+    ]
   }
 
   get languageOptions() {
-    return this.#languageOptions;
+    const setting = mergeDeep(
+      this.languageOptions,
+      this.settingOption.languageOptions
+    )
+    this.languageOptions = setting
+    return this.languageOptions
   }
 
   get plugins() {
-    return this.#plugins;
+    const setting = mergeDeep(this.plugins, this.settingOption.plugins)
+    this.plugins = setting
+    return this.plugins
   }
 
   get rules() {
-    return this.#rules;
+    const setting = mergeDeep(this.rules, this.settingOption.rules)
+    this.rules = setting
+    return this.rules
   }
 }
-module.exports = DefaultSetting;
+module.exports = DefaultSetting

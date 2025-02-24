@@ -1,37 +1,33 @@
-const mixinDeep = require("mixin-deep");
-
-const SettingProxy = require("./settings/proxy.cjs");
-const { SETTING_NAME_PREFIX } = require("./constants.cjs");
-
-const baseSetting = {
-  name: `${SETTING_NAME_PREFIX}/base`,
-  languageOptions: {},
-  plugins: {},
-};
+const SettingProxy = require('./settings/proxy.cjs')
 
 /** @type {import('./types').resolveSetting} */
 function resolveSetting(settingSpec, ...settingOptions) {
-  const finalSetting = [baseSetting];
+  const globalPlugins = {}
+  const finalSetting = []
   for (const settingOption of settingOptions) {
     const setting = new SettingProxy(
       settingSpec,
       settingOption
-    ).retrieveSetting();
-    mixinDeep(baseSetting, {
-      languageOptions: setting.languageOptions,
-      plugins: setting.plugins,
-    });
+    ).retrieveSetting()
+    Object.assign(globalPlugins, setting.plugins)
     finalSetting.push({
       name: setting.name,
       ...(setting.files.length && { files: setting.files }),
-      ...(setting.ignores.length && { ignore: setting.ignores }),
+      ...(setting.ignores.length && { ignores: setting.ignores }),
+      ...(Object.keys(setting.languageOptions).length && {
+        languageOptions: setting.languageOptions,
+      }),
       ...(Object.keys(setting.rules).length && { rules: setting.rules }),
-    });
+    })
   }
-  if (settingSpec.prettier) {
-    const prettierConfig = require("eslint-config-prettier");
-    finalSetting.push(prettierConfig);
+  Object.keys(globalPlugins).length &&
+    finalSetting.unshift({
+      plugins: globalPlugins,
+    })
+  if (settingSpec?.prettier) {
+    const prettierConfig = require('eslint-config-prettier')
+    finalSetting.push(prettierConfig)
   }
-  return finalSetting;
+  return finalSetting
 }
-module.exports.resolveSetting = resolveSetting;
+module.exports.resolveSetting = resolveSetting
