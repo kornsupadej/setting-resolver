@@ -18,6 +18,7 @@ class DefaultSetting {
   languageOptions = {}
   plugins = {}
   rules = {}
+  settings = {}
 
   /**
    * @constructor
@@ -64,6 +65,12 @@ class DefaultSetting {
     const setting = cloneDeep(this.rules)
     this.rules = merge(setting, this.settingOption.rules)
     return this.rules
+  }
+
+  get getSettings() {
+    const setting = cloneDeep(this.settings)
+    this.settings = merge(setting, this.settingOption.settings)
+    return this.settings
   }
 }
 module.exports = DefaultSetting

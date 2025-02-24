@@ -23,6 +23,7 @@ describe('#SettingProxy', () => {
       'ignores',
       'languageOptions',
       'rules',
+      'settings',
     ])
   })
 
@@ -38,6 +39,7 @@ describe('#SettingProxy', () => {
     expect(result.localSetting.ignores).to.deep.equal(ALL_IGNORE_FILES)
     expect(result.localSetting).to.not.contain.keys('languageOptions')
     expect(result.localSetting).to.contain.keys('rules')
+    expect(result.globalSetting).to.not.contain.keys('settings')
     expect(result.globalSetting.plugins).to.contain.keys('n')
   })
 
@@ -53,6 +55,7 @@ describe('#SettingProxy', () => {
     expect(result.localSetting.ignores).to.deep.equal(ALL_IGNORE_FILES)
     expect(result.localSetting).to.not.contain.keys('languageOptions')
     expect(result.localSetting).to.contain.keys('rules')
+    expect(result.globalSetting).to.not.contain.keys('settings')
     expect(result.globalSetting.plugins).to.contain.keys('n')
   })
 
@@ -67,6 +70,7 @@ describe('#SettingProxy', () => {
     expect(result.localSetting.files).to.deep.equal(ALL_JS_FILES)
     expect(result.localSetting.ignores).to.deep.equal(ALL_IGNORE_FILES)
     expect(result.localSetting).to.contain.keys(['languageOptions', 'rules'])
+    expect(result.globalSetting).to.not.contain.keys('settings')
     expect(result.globalSetting.plugins).to.contain.keys('import')
   })
 
@@ -81,6 +85,7 @@ describe('#SettingProxy', () => {
     expect(result.localSetting.files).to.deep.equal(ALL_TEST_FILES)
     expect(result.localSetting.ignores).to.deep.equal(ALL_IGNORE_FILES)
     expect(result.localSetting).to.contain.keys(['languageOptions', 'rules'])
+    expect(result.globalSetting).to.not.contain.keys('settings')
     expect(result.globalSetting.plugins).to.contain.keys('jest')
   })
 
@@ -95,6 +100,7 @@ describe('#SettingProxy', () => {
     expect(result.localSetting.files).to.deep.equal(ALL_TEST_FILES)
     expect(result.localSetting.ignores).to.deep.equal(ALL_IGNORE_FILES)
     expect(result.localSetting).to.contain.keys(['languageOptions', 'rules'])
+    expect(result.globalSetting).to.not.contain.keys('settings')
     expect(result.globalSetting.plugins).to.contain.keys('vitest')
   })
 
@@ -120,6 +126,7 @@ describe('#SettingProxy', () => {
       'ignores',
       'languageOptions',
       'rules',
+      'settings',
     ])
   })
 })

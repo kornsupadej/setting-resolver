@@ -66,6 +66,7 @@ class NodeJSSetting {
     'import/exports-last': 'error',
     'import/group-exports': 'error',
   }
+  #settings = {}
 
   /**
    * @constructor
@@ -136,11 +137,24 @@ class NodeJSSetting {
         ...ts.configs.recommendedTypeChecked[1].rules,
         /** tseslint-recommended-type-checked */
         ...ts.configs.recommendedTypeChecked[2].rules,
+        /** turn off import/named */
+        ...pluginImport.flatConfigs.typescript.rules,
       })
     }
     merge(setting, this.#settingOption.rules)
     this.#rules = setting
     return this.#rules
+  }
+
+  get getSettings() {
+    const setting = cloneDeep(this.#settings)
+    if (this.#settingSpec.typescript) {
+      assign(setting, {
+        ...pluginImport.flatConfigs.typescript.settings,
+      })
+    }
+    this.#settings = setting
+    return this.#settings
   }
 }
 module.exports = NodeJSSetting

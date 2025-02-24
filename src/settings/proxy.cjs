@@ -46,10 +46,11 @@ class SettingProxy {
           : settingOption?.type || 'default',
       options: {
         files: settingOption?.options?.files || [],
-        ignores: settingOption.options?.ignores || [],
+        ignores: settingOption?.options?.ignores || [],
         languageOptions: settingOption?.options?.languageOptions || {},
-        plugins: settingOption.options?.plugins,
-        rules: settingOption.options?.rules || {},
+        plugins: settingOption?.options?.plugins,
+        rules: settingOption?.options?.rules || {},
+        settings: settingOption?.options?.settings || {},
       },
     }
   }
@@ -84,10 +85,12 @@ class SettingProxy {
       getLanguageOptions: languageOptions,
       getPlugins: plugins,
       getRules: rules,
+      getSettings: settings,
     } = settingInstance
     return {
       globalSetting: {
         ...(Object.keys(plugins).length && { plugins }),
+        ...(Object.keys(settings).length && { settings }),
       },
       localSetting: {
         name,

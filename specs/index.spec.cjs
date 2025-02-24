@@ -94,11 +94,11 @@ describe('#resolveSetting', () => {
     const cjsSetting = new SettingProxy({}, SETTING_TYPES.CJS).parseSetting()
     const esmSetting = new SettingProxy({}, SETTING_TYPES.ESM).parseSetting()
     const nodejsSetting = new SettingProxy(
-      {},
+      { typescript: true },
       SETTING_TYPES.NODEJS
     ).parseSetting()
     const result = resolveSetting(
-      {},
+      { typescript: true },
       SETTING_TYPES.CJS,
       SETTING_TYPES.ESM,
       SETTING_TYPES.NODEJS
@@ -111,6 +111,9 @@ describe('#resolveSetting', () => {
           ...cjsSetting.globalSetting.plugins,
           ...esmSetting.globalSetting.plugins,
           ...nodejsSetting.globalSetting.plugins,
+        },
+        settings: {
+          ...nodejsSetting.globalSetting.settings,
         },
       },
       {

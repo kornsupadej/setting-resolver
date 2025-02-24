@@ -17,6 +17,7 @@ const createInstance = (
     languageOptions: {},
     plugins: {},
     rules: {},
+    settings: {},
   }
 ) => {
   return new CJSSetting(settingSpec, settingOption)
@@ -39,6 +40,7 @@ const baseExpected = {
     'n/no-new-require': 'error',
     'n/no-path-concat': 'error',
   },
+  settings: {},
 }
 
 describe('#CJSSetting', () => {
@@ -50,6 +52,7 @@ describe('#CJSSetting', () => {
     expect(inst.getLanguageOptions).to.deep.equal(baseExpected.languageOptions)
     expect(inst.getPlugins).to.deep.equal(baseExpected.plugins)
     expect(inst.getRules).to.deep.equal(baseExpected.rules)
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 
   it('reolve setting with options correctly', () => {
@@ -87,5 +90,6 @@ describe('#CJSSetting', () => {
       ...baseExpected.rules,
       'some-rules': 'off',
     })
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 })

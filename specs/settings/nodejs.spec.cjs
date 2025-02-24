@@ -21,6 +21,7 @@ const createInstance = (
     languageOptions: {},
     plugins: {},
     rules: {},
+    settings: {},
   }
 ) => {
   return new NodeJSSetting(settingSpec, settingOption)
@@ -70,6 +71,7 @@ const baseExpected = {
     'import/exports-last': 'error',
     'import/group-exports': 'error',
   },
+  settings: {},
 }
 
 describe('#NodeJSSetting', () => {
@@ -81,6 +83,7 @@ describe('#NodeJSSetting', () => {
     expect(inst.getLanguageOptions).to.deep.equal(baseExpected.languageOptions)
     expect(inst.getPlugins).to.deep.equal(baseExpected.plugins)
     expect(inst.getRules).to.deep.equal(baseExpected.rules)
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 
   it('resolve setting preset with typescript correctly', () => {
@@ -110,6 +113,12 @@ describe('#NodeJSSetting', () => {
       ...ts.configs.recommendedTypeChecked[1].rules,
       /** tseslint-recommended-type-checked */
       ...ts.configs.recommendedTypeChecked[2].rules,
+      /** turn off import/named */
+      ...pluginImport.flatConfigs.typescript.rules,
+    })
+    expect(inst.getSettings).to.deep.equal({
+      ...baseExpected.settings,
+      ...pluginImport.flatConfigs.typescript.settings,
     })
   })
 
@@ -153,5 +162,6 @@ describe('#NodeJSSetting', () => {
       ...baseExpected.rules,
       'some-rules': 'off',
     })
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 })

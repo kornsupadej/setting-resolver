@@ -11,6 +11,7 @@ const createInstance = (
     languageOptions: {},
     plugins: {},
     rules: {},
+    settings: {},
   }
 ) => {
   return new DefaultSetting(settingSpec, settingOption)
@@ -23,6 +24,7 @@ const baseExpected = {
   languageOptions: {},
   plugins: {},
   rules: {},
+  settings: {},
 }
 
 describe('#DefaultSetting', () => {
@@ -34,6 +36,7 @@ describe('#DefaultSetting', () => {
     expect(inst.getLanguageOptions).to.deep.equal(baseExpected.languageOptions)
     expect(inst.getPlugins).to.deep.equal(baseExpected.plugins)
     expect(inst.getRules).to.deep.equal(baseExpected.rules)
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 
   it('reolve setting with options correctly', () => {
@@ -71,5 +74,6 @@ describe('#DefaultSetting', () => {
       ...baseExpected.rules,
       'some-rules': 'off',
     })
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 })

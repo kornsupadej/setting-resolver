@@ -17,6 +17,7 @@ const createInstance = (
     languageOptions: {},
     plugins: {},
     rules: {},
+    settings: {},
   }
 ) => {
   return new VitestSetting(settingSpec, settingOption)
@@ -39,6 +40,7 @@ const baseExpected = {
     'vitest/no-done-callback': 'error',
     'vitest/expect-expect': 'off',
   },
+  settings: {},
 }
 
 describe('#VitestSetting', () => {
@@ -50,6 +52,7 @@ describe('#VitestSetting', () => {
     expect(inst.getLanguageOptions).to.deep.equal(baseExpected.languageOptions)
     expect(inst.getPlugins).to.deep.equal(baseExpected.plugins)
     expect(inst.getRules).to.deep.equal(baseExpected.rules)
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 
   it('reolve setting with options correctly', () => {
@@ -92,5 +95,6 @@ describe('#VitestSetting', () => {
       ...baseExpected.rules,
       'some-rules': 'off',
     })
+    expect(inst.getSettings).to.deep.equal(baseExpected.settings)
   })
 })
