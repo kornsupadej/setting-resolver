@@ -1,5 +1,5 @@
-/** @type {import('./types').resolvePrettierSetting} */
-function resolvePrettierSetting(prettierOptions) {
+/** @type {import('../types').resolvePrettierSetting} */
+function resolvePrettierSetting(prettierOptions = {}) {
   return {
     printWidth: 80,
     tabWidth: 2,

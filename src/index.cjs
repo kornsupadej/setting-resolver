@@ -6,7 +6,7 @@ const { SETTING_NAME_PREFIX } = require('./constants.cjs')
 const baseSetting = {
   name: `${SETTING_NAME_PREFIX}/base`,
 }
-/** @type {import('./types').resolveSetting} */
+/** @type {import('../types').resolveSetting} */
 function resolveSetting(settingSpec, ...settingOptions) {
   const finalSetting = [baseSetting]
   for (const settingOption of settingOptions) {
