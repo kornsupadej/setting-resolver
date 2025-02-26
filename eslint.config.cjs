@@ -4,11 +4,24 @@ const globals = require('globals')
 const js = require('@eslint/js')
 const pluginMocha = require('eslint-plugin-mocha')
 
+const ignores = `
+**/node_modules/*
+.changeset
+.husky
+# nyc coverage report/output folder
+.coverage
+.nyc_output
+# transpiled output
+lib
+`
+  .split('\n')
+  .filter(pattern => pattern && !pattern.startsWith('#')) // filer comments starts with #
+
 /** @type {import('eslint').Linter.Config[]} */
 module.exports = [
   { files: ['**/*.cjs'] },
   {
-    ignores: ['.coverage', '.nyc_output'],
+    ignores,
   },
   {
     languageOptions: {
@@ -20,10 +33,10 @@ module.exports = [
   {
     name: 'eslint/eslint-recommended',
     ...js.configs.recommended,
-    /** override rules */
     rules: {
       ...js.configs.recommended.rules,
       'constructor-super': 'off',
+      /** override rules */
       'no-dupe-class-members': 'off',
     },
   },
@@ -40,12 +53,11 @@ module.exports = [
     name: 'eslint/mocha',
     ...pluginMocha.configs.flat.recommended,
     files: ['specs/**/*.spec.cjs'],
-    /** override rules */
     rules: {
       ...pluginMocha.configs.flat.recommended.rules,
+      /** override rules */
       'mocha/no-mocha-arrows': 'off',
     },
   },
-
   configPrerttier,
 ]

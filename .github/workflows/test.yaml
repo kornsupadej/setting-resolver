@@ -21,7 +21,7 @@ jobs:
       - if: matrix.os == 'windows-latest'
         run: git config --global core.autocrlf true
 
-      - name: Checkout Branch
+      - name: Checkout Commit
         uses: actions/checkout@v4
 
       - name: Install pnpm

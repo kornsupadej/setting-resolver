@@ -34,8 +34,8 @@ class JestSetting extends DefaultSetting {
 
   /**
    * @constructor
-   * @param {import('../types').SettingSpec} settingSpec
-   * @param {import('../types').ESLint.FlatConfig} settingOption
+   * @param {import('../../types').SettingSpec} settingSpec
+   * @param {import('../../types').ESLint.FlatConfig} settingOption
    */
   constructor(settingSpec, settingOption) {
     super(settingSpec, settingOption)

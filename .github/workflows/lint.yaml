@@ -8,7 +8,7 @@ jobs:
     name: ESLint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Branch
+      - name: Checkout Commit
         uses: actions/checkout@v4
 
       - name: Install pnpm
@@ -25,4 +25,6 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm i --frozen-lockfile
-      - run: pnpm lint:check
+
+      - name: Run Lint Check
+        run: pnpm lint:check

@@ -28,8 +28,8 @@ class SettingProxy {
   #settingOption
   /**
    * @constructor
-   * @param {import('../types').SettingSpec} settingSpec
-   * @param {import('../types').SettingOption} settingOption
+   * @param {import('../../types').SettingSpec} settingSpec
+   * @param {import('../../types').SettingOption} settingOption
    */
   constructor(settingSpec, settingOption) {
     this.#settingSpec = {

@@ -18,7 +18,7 @@ jobs:
       - run-lint
       - run-test
     steps:
-      - name: Checkout Branch
+      - name: Checkout Commit
         uses: actions/checkout@v4
 
       - name: Install pnpm
@@ -35,6 +35,9 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm i --frozen-lockfile
+
+      - name: Build Package
+        run: pnpm build
 
       - name: Create release pull request
         id: changesets

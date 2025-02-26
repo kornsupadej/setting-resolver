@@ -70,8 +70,8 @@ class NodeJSSetting {
 
   /**
    * @constructor
-   * @param {import('../types').SettingSpec} settingSpec
-   * @param {import('../types').ESLint.FlatConfig} settingOption
+   * @param {import('../../types').SettingSpec} settingSpec
+   * @param {import('../../types').ESLint.FlatConfig} settingOption
    */
   constructor(settingSpec, settingOption) {
     this.#settingSpec = settingSpec
