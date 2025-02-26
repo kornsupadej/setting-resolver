@@ -1,5 +1,11 @@
 # @kornsupadej/setting-resolver
 
+## 0.1.2
+
+### Patch Changes
+
+- c6237d8: Bug fixes: Define public access in changeset config
+
 ## 0.1.1
 
 ### Patch Changes
