@@ -1,4 +1,5 @@
 {
+  "private": false,
   "name": "@kornsupadej/setting-resolver",
   "version": "0.0.0",
   "description": "My toolbox for project settings",
