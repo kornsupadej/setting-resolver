@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@kornsupadej/setting-resolver",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "My toolbox for project settings",
   "license": "MIT",
   "author": "Kornsupadej Suvarnakasa",
