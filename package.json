@@ -22,12 +22,12 @@
     "./prettier": {
       "types": "./types/index.d.ts",
       "default": "./lib/prettier.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "lib",
     "!lib/**/*.map",
-    "!constants.js",
     "types",
     "README.md",
     "LICENSE"
@@ -41,16 +41,9 @@
     "lint:check": "eslint \"**/*.{js,cjs}\"",
     "format": "prettier \"**/*.{js,cjs,json,yml,yaml}\" --write",
     "format:check": "prettier \"**/*.{js,cjs,json,yml,yaml}\"",
+    "release": "changeset publish",
+    "release:version": "changeset version",
     "prepare": "husky"
-  },
-  "lint-staged": {
-    "*.{js,cjs}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,yml,yaml}": [
-      "prettier --write"
-    ]
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
