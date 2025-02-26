@@ -1,5 +1,11 @@
 # @kornsupadej/setting-resolver
 
+## 0.1.3
+
+### Patch Changes
+
+- ce24189: Bug fixes: Type reference & Default object in prettier config
+
 ## 0.1.2
 
 ### Patch Changes
